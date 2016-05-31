@@ -1215,7 +1215,7 @@ seq
 	if (!is_valid_u16($5)) {
 		semantic_error("TCP payload size out of range");
 	}
-	if ($3 != ($1 +$5)) {
+	if ( ($3 & 0xFFFFFFFF) != ( ($1 +$5) &0xFFFFFFFF ) ) {
 		semantic_error("inconsistent TCP sequence numbers and "
 			       "payload size");
 	}
