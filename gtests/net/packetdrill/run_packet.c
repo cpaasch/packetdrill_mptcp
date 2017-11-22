@@ -208,7 +208,7 @@ static bool is_equals_tuple_socket_and_packet(struct socket *socket,
 {
 	//TODO check all 5-tuple ([IP,port] dst/src & protocol), will be
 	//necessary when multiple interface support will be implemented
-	return is_equal_port(socket->live.local.port, packet->tcp->src_port) &&
+	return packet->tcp && is_equal_port(socket->live.local.port, packet->tcp->src_port) &&
 		   is_equal_port(socket->live.remote.port, packet->tcp->dst_port);
 }
 
@@ -223,7 +223,7 @@ static bool is_equals_tuple_socket_and_packet_reversed_ports(struct socket *sock
 {
 	//TODO check IP too, will be necessary when multiple interface support
 	//will be implemented.
-	return is_equal_port(socket->live.local.port, packet->tcp->dst_port) &&
+	return packet->tcp && is_equal_port(socket->live.local.port, packet->tcp->dst_port) &&
 			is_equal_port(socket->live.remote.port, packet->tcp->src_port);
 }
 
@@ -236,7 +236,7 @@ struct socket *find_socket_matching_packet_tuple_reversed_ports(struct state *st
 static bool socket_remote_port_equals_packet_dst_port(struct socket *socket,
 		const struct packet *packet)
 {
-	return is_equal_port(socket->live.remote.port, packet->tcp->dst_port);
+	return packet->tcp && is_equal_port(socket->live.remote.port, packet->tcp->dst_port);
 }
 
 struct socket *find_corresponding_socket_remote_port(struct state *state,
