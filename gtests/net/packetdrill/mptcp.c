@@ -161,10 +161,9 @@ u64 *find_next_key(){
 
 	struct mp_var *var = find_mp_var(var_name);
 	free(var_name);
-/*
 	if(!var || var->mptcp_subtype != MP_CAPABLE_SUBTYPE){
 		return NULL;
-	}*/
+	}
 	return (u64*)var->value;
 }
 
